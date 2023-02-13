@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 [System.Serializable]
 public struct ClampParsedCommand
@@ -40,13 +41,22 @@ public class UITerminal : MonoBehaviour
             return;
         } else if(m_isUsingPerfectNumberChecking)
         {
-            m_isUsingPerfectNumberChecking = false;
-            _Log("Unable to parse, quitting perfect number checking...", true);
+            _ExitPerfectNumberCheck("Unable to parse, quitting perfect number checking...");
             return;
         }
 
-        // equals oop
-        // equals hack
+        if(command.Equals("oop"))
+        {
+            _ProcessReadingOOPEssay();
+            return;
+        }
+
+        if(command.Equals("hack"))
+        {
+            _Log("Hacking babeeee", true);
+            return;
+        }
+
         _Log("Command is not recognizable", true);
     }
 
@@ -62,6 +72,7 @@ public class UITerminal : MonoBehaviour
         m_consoleText.text += log + "\n" + (isQuitting ? ">" : "") ;
     }
 
+    #region Perfect Number Checking
     // todo : pindah ke kelas baru
     [SerializeField] ClampParsedCommand m_clampInputCount;
     [SerializeField] ClampParsedCommand m_clampCheckNumber;
@@ -75,7 +86,7 @@ public class UITerminal : MonoBehaviour
             case false:
                 if (!(parsedCommand >= m_clampInputCount.min && parsedCommand <= m_clampInputCount.max))
                 {
-                    _Log("Q value should be between" + m_clampInputCount.min + " & " + m_clampInputCount.max, true);
+                    _ExitPerfectNumberCheck("Q value should be between " + m_clampInputCount.min + " & " + m_clampInputCount.max);
                     return;
                 }
 
@@ -85,10 +96,10 @@ public class UITerminal : MonoBehaviour
                 m_isUsingPerfectNumberChecking = true;
                 break;
             case true:
-                if(m_clampCheckNumber.min>= parsedCommand && parsedCommand <= m_clampCheckNumber.max)
+                if(!(parsedCommand >= m_clampCheckNumber.min && parsedCommand <= m_clampCheckNumber.max))
                 {
-                    _Log("Input between " + m_clampCheckNumber.min + " & " + m_clampCheckNumber.max + "...", true);
-                    m_isUsingPerfectNumberChecking = false;
+                    _ExitPerfectNumberCheck("Input between " + m_clampCheckNumber.min + " & " + m_clampCheckNumber.max + "...");
+                    return;
                 }
 
                 m_checkedNumbers[m_checkedNumber_index] = parsedCommand;
@@ -102,7 +113,7 @@ public class UITerminal : MonoBehaviour
                     _Log(_PerfectNumberCheck(m_checkedNumbers[i]), i+1 >= m_checkedNumbers.Length);
                 }
 
-                m_isUsingPerfectNumberChecking = false;
+                _ExitPerfectNumberCheck();
                 break;
         }
 
@@ -124,4 +135,31 @@ public class UITerminal : MonoBehaviour
 
         return number + " is not a perfect number.";
     }
+
+    private void _ExitPerfectNumberCheck(string log = "")
+    {
+        if(!string.IsNullOrEmpty(log))
+            _Log(log, true);
+
+        m_isUsingPerfectNumberChecking = false;
+    }
+    #endregion
+
+    #region OOP
+    [SerializeField] TextAsset m_oopEssayTXT;
+    private void _ProcessReadingOOPEssay()
+    {
+        if(!m_oopEssayTXT)
+        {
+            _Log("Unable to load Essay file, quitting...", true);
+            return;
+        }
+
+        _Log(m_oopEssayTXT.text, true);
+    }
+    #endregion
+
+    #region Hack
+
+    #endregion
 }

@@ -1441,6 +1441,7 @@ MonoBehaviour:
   m_clampCheckNumber:
     min: 2
     max: 1000
+  m_oopEssayTXT: {fileID: 4900000, guid: d974941f81c2a754fb1d5fa54dd0d3db, type: 3}
 --- !u!1 &1349960973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2075,10 +2076,10 @@ RectTransform:
   m_Father: {fileID: 1668643281}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 935.49225, y: -179.13}
+  m_SizeDelta: {x: 1838.9845, y: 163.13}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2053420861
 MonoBehaviour:
@@ -2102,11 +2103,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Welcome to Project SPY COMBAT''s terminal
 
-    Please input Q number you
-    want for factorization
+    - Please input numeric
+    value (1 <= Q <= 50) if you want to check perfect number of Q numbers.
 
-    Or if you want to hack this terminal, use command
-    "hack"
+    -
+    If you want to read my essay about Object Oriented Programming (OOP), use command
+    "oop".
+
+    - Or if you want to hack this terminal, use command "hack".
+
 
     >'
   m_isRightToLeft: 0

@@ -1,0 +1,8 @@
+Object oriented programming adalah paradigma pemrograman yang berbasis objek. 
+Awalnya ribet gitu, gua lupa namanya apa sebelum ada OOP, struktural ya? Auk ah lupa.
+Ya jadi dulu sebelum ada OOP, paradigma pemrograman biasanya pake struktural.
+Nah, sebenernya works works aja sih, ada pro nya juga pake struktural sampe jaman sekarang, tetapi kontranya juga ada.
+Kalo struktural, skalabilitas kodingan rendah, jadi kalo masih kecil programmnya masih gampang, bahkan lebih enak daripada oop.
+Masalahnya pas skalabilitasnya udah gede, nah itu dia OOP dibutuhkan.
+
+Ya gitu deh, pemakaiannya banyak yak. Rempong dah yaealah
