@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SpyCombat.Gameplay
 {
+    public class ActivePowerUpHashSet<T> : HashSet<T> where T : AbstractPowerUpController { }
     public class EntityController_Player : AbstractEntityDynamicController
     {
         public static EntityController_Player Instance { get; private set; }
 
-        HashSet<AbstractPowerUpController> m_currentActivePowerup = new HashSet<AbstractPowerUpController>();
+        public ActivePowerUpHashSet<AbstractPowerUpController> CurrentActivePowerup { get; private set; } = new ActivePowerUpHashSet<AbstractPowerUpController>();
 
         [Header("Movement : Player")]
         [Tooltip("Speed multiplier when sprinting")]
@@ -32,6 +34,12 @@ namespace SpyCombat.Gameplay
             if(powerUp)
             {
                 powerUp.PickUp(this);
+            }
+
+            var waveTrigger = other.GetComponent<WaveController>();
+            if (waveTrigger)
+            {
+                waveTrigger.StartWave();
             }
         }
         #endregion
@@ -85,7 +93,7 @@ namespace SpyCombat.Gameplay
             bool interact = Input.GetButtonDown("Interact");
             if(interact)
             {
-                Collider[] colliders = Physics.OverlapSphere(transform.position, 3.0f, Physics.AllLayers, QueryTriggerInteraction.Collide);
+                Collider[] colliders = Physics.OverlapSphere(transform.position, 1.0f, Physics.AllLayers, QueryTriggerInteraction.Collide);
                 for(int i=0; i<colliders.Length; i++)
                 {
                     var weapon = colliders[i].GetComponent<WeaponController>();
@@ -107,6 +115,19 @@ namespace SpyCombat.Gameplay
                     }
                 }
             }
+        }
+
+        private float _CalcSpeed(float currentSprintMultiplier)
+        {
+            AbstractPowerUpController powerUp;
+            float speedMultiplier = 1;
+            if(CurrentActivePowerup.TryGetValue(new PowerUpController_SpeedMultiplier(), out powerUp))
+            {
+                print("oy");
+                speedMultiplier = (powerUp as PowerUpController_SpeedMultiplier).SpeedMultiplier;
+            }
+
+            return speed * currentSprintMultiplier * speedMultiplier;
         }
     }
 }
