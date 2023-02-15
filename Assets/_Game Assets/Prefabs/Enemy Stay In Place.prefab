@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3867612565558651588}
   m_Layer: 0
-  m_Name: Bullet Spawn
+  m_Name: Attack Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,10 +265,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3236566b2b75ef34bb446ab2906d9151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bulletSpawn: {fileID: 3867612565558651588}
-  m_gunPrefab: {fileID: 6953621554904309407, guid: 4022aefb05b15854bb27f4fca596e622, type: 3}
-  m_gunParent: {fileID: 3867612566440942765}
-  m_maxHealth: 5
+  m_defaultMaxHealth: 5
+  m_characterController: {fileID: 3867612566276540644}
+  speed: 3
+  m_defaultWeaponPrefab: {fileID: 4039877293268964081, guid: 4022aefb05b15854bb27f4fca596e622, type: 3}
+  m_weaponParent: {fileID: 3867612566440942765}
+  m_attackSpawn: {fileID: 3867612565558651588}
 --- !u!1 &3867612566440942764
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3867612566440942765}
   m_Layer: 0
-  m_Name: Gun Parent
+  m_Name: Weapon Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
