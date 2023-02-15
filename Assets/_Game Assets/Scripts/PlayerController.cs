@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
+
     [SerializeField] CharacterController m_characterController;
     [SerializeField] Animator m_animState;
     [SerializeField] Transform m_bulletSpawn;
@@ -19,6 +21,11 @@ public class PlayerController : MonoBehaviour
     GunController m_currentGun;
 
     #region Unity's Callback
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Update()
     {
         _HandlePlayerFireInput();
@@ -26,6 +33,7 @@ public class PlayerController : MonoBehaviour
         _HandlePlayerLookInput();
     }
 
+    // todo : ganti ke taro di update aja
     private void OnTriggerStay(Collider other)
     {
         bool interact = Input.GetButtonDown("Interact");

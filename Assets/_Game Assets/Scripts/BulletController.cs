@@ -18,7 +18,7 @@ public class BulletController : MonoBehaviour
     #region Unity's Callback
     private void OnCollisionEnter(Collision collision)
     {
-        var enemy = collision.gameObject.GetComponent<EnemyController>();
+        var enemy = collision.gameObject.GetComponent<EnemyController>(); // ganti jadi entity
         if (enemy)
         {
             enemy.HitByBullet(this);
