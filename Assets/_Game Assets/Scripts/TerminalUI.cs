@@ -192,7 +192,7 @@ namespace SpyCombat.Menuscreen
             _Log("Thanks for using our service! ^^");
             yield return new WaitForSeconds(1.0f);
 
-            SceneManager.LoadScene("Gameplay");
+            GameUI.Instance.LoadScene("Gameplay");
         }
         #endregion
     }

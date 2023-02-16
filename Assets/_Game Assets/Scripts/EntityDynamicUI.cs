@@ -42,7 +42,7 @@ namespace SpyCombat.Gameplay
             if (!m_entity.CurrentWeapon)
                 return;
 
-            m_cooldownBar.value = m_entity.CurrentWeapon.currentShot /m_entity.CurrentWeapon.maxShot;
+            m_cooldownBar.value = m_entity.CurrentWeapon.currentShot /m_entity.CurrentWeapon.weaponScriptable.maxShot;
         }
 
         private void LateUpdate()

@@ -14,8 +14,8 @@ namespace SpyCombat.Gameplay
     [System.Serializable]
     public class Wave_Spawner
     {
-        [SerializeField] AbstractEntityDynamicController m_enemyPrefab;
-        public AbstractEntityDynamicController EnemyPrefab { get => m_enemyPrefab; }
+        [SerializeField] int m_enemyDatabaseID;
+        public int EnemyDatabaseID { get => m_enemyDatabaseID; }
 
         [SerializeField] Transform m_spawner;
         public Transform Spawner { get => m_spawner; }
@@ -60,7 +60,9 @@ namespace SpyCombat.Gameplay
 
             for(int i=0; i<currentWave.waveSpawners.Length; i++)
             {
-                var enemy = Instantiate(currentWave.waveSpawners[i].EnemyPrefab, currentWave.waveSpawners[i].Spawner.position, currentWave.waveSpawners[i].Spawner.rotation);
+                var enemy = WavePooler.Instance.GetPooledObject(currentWave.waveSpawners[i].EnemyDatabaseID);
+                enemy.transform.SetPositionAndRotation(currentWave.waveSpawners[i].Spawner.position, currentWave.waveSpawners[i].Spawner.rotation);
+                enemy.gameObject.SetActive(true);
                 checkedEnemies[i] = enemy;
             }
 

@@ -1,8 +1,11 @@
-Object oriented programming adalah paradigma pemrograman yang berbasis objek. 
-Awalnya ribet gitu, gua lupa namanya apa sebelum ada OOP, struktural ya? Auk ah lupa.
-Ya jadi dulu sebelum ada OOP, paradigma pemrograman biasanya pake struktural.
-Nah, sebenernya works works aja sih, ada pro nya juga pake struktural sampe jaman sekarang, tetapi kontranya juga ada.
-Kalo struktural, skalabilitas kodingan rendah, jadi kalo masih kecil programmnya masih gampang, bahkan lebih enak daripada oop.
-Masalahnya pas skalabilitasnya udah gede, nah itu dia OOP dibutuhkan.
+Object oriented programming (OOP) adalah paradigma pemrograman yang berbasis objek dimana data-data dibentuk dalam objek dan fungsi-fungsi dieksekusi oleh objek tersebut.
+Paradigma ini sangat populer dan sering digunakan untuk di berbagai macam bahasa pemrograman.
+Di OOP, ada beberapa teknik yang sering digunakan, seperti inheritance, interface, dan lain-lain.
+Kelebihan dari OOP adalah didesain agar kodingan lebih modular, mudah dipahami dan diurus, dan makin mudah untuk sering digunakan.
 
-Ya gitu deh, pemakaiannya banyak yak. Rempong dah yaealah
+Salah satu contoh penggunaan OOP yaitu misalnya ketika membuat database pekerja. 
+Pekerja inheritance dari Orang, dan User inheritance dari Orang.
+Pekerja mempunyai fungsi khusus yang tidak boleh digunakan oleh User, contohnya yaitu Bekerja().
+Sedangkan User, mempunyai fungsi khusus yang pekerja tidak bisa gunakan, contohnya Dilayani() di toko ini.
+Namun, kedua dari mereka mempunyai fungsi yang sama, seperti GetNama(), GetGender(), dll.
+Inilah salah satu fungsi OOP, agar datanya bisa digunakan kembali.

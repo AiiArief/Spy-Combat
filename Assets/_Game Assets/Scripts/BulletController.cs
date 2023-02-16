@@ -12,21 +12,29 @@ namespace SpyCombat.Gameplay
 {
     public class BulletController : MonoBehaviour
     {
+        [SerializeField] BulletScriptable m_bulletScriptable;
+        public BulletScriptable bulletScriptable { get => m_bulletScriptable; }
+
         [SerializeField] Rigidbody m_rigidbody;
 
-        [Tooltip("Bullet's move speed in meter / second")]
-        [SerializeField] float m_bulletSpeed = 50.0f;
+        public int damage { get; private set; }
 
         #region Unity's Callback
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider collision)
         {
-            var hitable = collision.gameObject.GetComponent<IHitable>();
+            var hitable = collision.GetComponent<IHitable>();
             if (hitable != null)
             {
                 hitable.HitByBullet(this);
+                gameObject.SetActive(false);
+                return;
             }
 
-            Destroy(gameObject); // ganti pooling
+            var bullet = collision.GetComponent<BulletController>();
+            if (bullet)
+                return;
+
+            gameObject.SetActive(false);
         }
         #endregion
 
@@ -34,12 +42,21 @@ namespace SpyCombat.Gameplay
         ///     Call this after instantiate to make this bullet works!
         /// </summary>
         /// <param name="originalDirection">Where are you going?</param>
-        public void InitializeBullet(Vector3 originalDirection)
+        public void InitializeBullet(Vector3 originalDirection, int damageMultiplier = 1)
         {
-            Destroy(gameObject, 3.0f);
+            StartCoroutine(_Lifetime());
             transform.forward = originalDirection;
 
-            m_rigidbody.velocity = originalDirection * m_bulletSpeed;
+            m_rigidbody.velocity = originalDirection * m_bulletScriptable.bulletSpeed;
+
+            damage = m_bulletScriptable.damage * damageMultiplier;
+        }
+
+        private IEnumerator _Lifetime()
+        {
+            yield return new WaitForSeconds(m_bulletScriptable.lifeTime);
+
+            gameObject.SetActive(false);
         }
     }
 }

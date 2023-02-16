@@ -172,8 +172,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20, y: 1, z: 20}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 20, y: 1, z: 17}
+  m_Center: {x: 0, y: 0, z: 1.5}
 --- !u!114 &7547309513846167203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,29 +192,29 @@ MonoBehaviour:
   - {fileID: 4042880907832514174}
   m_waves:
   - m_waveSpawners:
-    - m_enemyPrefab: {fileID: 3867612566276540645, guid: 6ed157132c032db44b9c64f76b67c1ee, type: 3}
+    - m_enemyDatabaseID: 0
       m_spawner: {fileID: 303867898221980012}
-    - m_enemyPrefab: {fileID: 3867612566276540645, guid: 6ed157132c032db44b9c64f76b67c1ee, type: 3}
+    - m_enemyDatabaseID: 0
       m_spawner: {fileID: 8793849988379341020}
   - m_waveSpawners:
-    - m_enemyPrefab: {fileID: 3867612566276540645, guid: 6ed157132c032db44b9c64f76b67c1ee, type: 3}
+    - m_enemyDatabaseID: 0
       m_spawner: {fileID: 1201702248755307917}
-    - m_enemyPrefab: {fileID: 3867612566276540645, guid: 6ed157132c032db44b9c64f76b67c1ee, type: 3}
+    - m_enemyDatabaseID: 0
       m_spawner: {fileID: 6149610940819406075}
-    - m_enemyPrefab: {fileID: 3867612566276540645, guid: 6ed157132c032db44b9c64f76b67c1ee, type: 3}
+    - m_enemyDatabaseID: 0
       m_spawner: {fileID: 6855277856724538406}
-    - m_enemyPrefab: {fileID: 3867612566276540645, guid: 6ed157132c032db44b9c64f76b67c1ee, type: 3}
+    - m_enemyDatabaseID: 0
       m_spawner: {fileID: 6733516551642785228}
   - m_waveSpawners:
-    - m_enemyPrefab: {fileID: 3867612566276540645, guid: 6ed157132c032db44b9c64f76b67c1ee, type: 3}
+    - m_enemyDatabaseID: 0
       m_spawner: {fileID: 303867898221980012}
-    - m_enemyPrefab: {fileID: 3867612566276540645, guid: 6ed157132c032db44b9c64f76b67c1ee, type: 3}
+    - m_enemyDatabaseID: 0
       m_spawner: {fileID: 8793849988379341020}
-    - m_enemyPrefab: {fileID: 3867612566276540645, guid: 6ed157132c032db44b9c64f76b67c1ee, type: 3}
+    - m_enemyDatabaseID: 0
       m_spawner: {fileID: 2725818483208291268}
-    - m_enemyPrefab: {fileID: 3867612566276540645, guid: 6ed157132c032db44b9c64f76b67c1ee, type: 3}
+    - m_enemyDatabaseID: 0
       m_spawner: {fileID: 6767349576200520143}
-    - m_enemyPrefab: {fileID: 5236634472650209054, guid: 29c5113e914746a4ab63ef4c53cb5433, type: 3}
+    - m_enemyDatabaseID: 1
       m_spawner: {fileID: 2503403718571802890}
 --- !u!1 &1561647890078725828
 GameObject:

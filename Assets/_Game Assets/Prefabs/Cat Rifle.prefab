@@ -59,12 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb16bebfe6a6f8749ae008fed00ecbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bulletPrefab: {fileID: 4597986332481527592, guid: 8ded31e1f6cd69a47aa5b7a2941260c1, type: 3}
-  bulletBurstPerShot: 3
-  shotRecoil: 1.5
-  bulletFiringRate: 0.15
-  maxShot: 7
-  shotCooldownTime: 1
+  m_weaponScriptable: {fileID: 11400000, guid: bbcfb807c5194a24f9f284aa09296d36, type: 2}
   m_collider: {fileID: 6953621554904309392}
 --- !u!1001 &6953621554016517705
 PrefabInstance:

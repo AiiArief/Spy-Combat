@@ -8,7 +8,7 @@ namespace SpyCombat.Gameplay
     {
         public void HitByBullet(BulletController bullet)
         {
-            CurrentHealth = Mathf.Max(0, CurrentHealth - 1);
+            CurrentHealth = Mathf.Max(0, CurrentHealth - bullet.damage);
             if (CurrentHealth <= 0)
             {
                 SetIsAlive(false);

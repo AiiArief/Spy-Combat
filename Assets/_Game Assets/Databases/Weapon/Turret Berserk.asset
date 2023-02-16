@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9543a5f214bce2479d0ea3a8ef71983, type: 3}
+  m_Name: Turret Berserk
+  m_EditorClassIdentifier: 
+  bulletDatabaseID: 1
+  bulletBurstPerShot: 8
+  shotRecoil: 7.5
+  bulletFiringRate: 0.01
+  maxShot: 3
+  shotCooldownTime: 0.3

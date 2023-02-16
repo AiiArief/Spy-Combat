@@ -8,7 +8,7 @@ namespace SpyCombat.Gameplay
     {
         public override void HitByBullet(BulletController bullet)
         {
-            CurrentHealth = Mathf.Max(0, CurrentHealth - 1);
+            CurrentHealth = Mathf.Max(0, CurrentHealth - bullet.damage);
             if (CurrentHealth <= 0)
             {
                 SetIsAlive(false);
@@ -19,8 +19,10 @@ namespace SpyCombat.Gameplay
         {
             EntityController_Player player = EntityController_Player.Instance;
             Vector3 dir = player.transform.position - transform.position;
+            Vector3 gravity = (CharacterController.isGrounded) ? Vector3.zero : ENTITY_GRAVITY * Time.deltaTime;
 
-            m_characterController.Move(dir.normalized * speed * Time.deltaTime);
+            CharacterController.Move(dir.normalized * speed * Time.deltaTime + gravity);
+            Animator.SetFloat("moveRange", Mathf.RoundToInt(dir.magnitude));
         }
 
         protected override void _HandleAttackInput()

@@ -5,12 +5,9 @@ using UnityEngine;
 
 namespace SpyCombat.Gameplay
 {
-    public class ActivePowerUpHashSet<T> : HashSet<T> where T : AbstractPowerUpController { }
     public class EntityController_Player : AbstractEntityDynamicController
     {
         public static EntityController_Player Instance { get; private set; }
-
-        public ActivePowerUpHashSet<AbstractPowerUpController> CurrentActivePowerup { get; private set; } = new ActivePowerUpHashSet<AbstractPowerUpController>();
 
         [Header("Movement : Player")]
         [Tooltip("Speed multiplier when sprinting")]
@@ -31,7 +28,7 @@ namespace SpyCombat.Gameplay
         private void OnTriggerEnter(Collider other)
         {
             var powerUp = other.GetComponent<AbstractPowerUpController>();
-            if(powerUp)
+            if (powerUp)
             {
                 powerUp.PickUp(this);
             }
@@ -41,15 +38,31 @@ namespace SpyCombat.Gameplay
             {
                 waveTrigger.StartWave();
             }
+
+            var winTrigger = other.tag == "Win";
+            if (winTrigger)
+            {
+                GameUI.Instance.WinScene();
+            }
         }
         #endregion
 
         public override void HitByBullet(BulletController bullet)
         {
-            CurrentHealth = Mathf.Max(0, CurrentHealth - 1);
+            CurrentHealth = Mathf.Max(0, CurrentHealth - bullet.damage);
             if (CurrentHealth <= 0)
             {
                 SetIsAlive(false);
+            }
+        }
+
+        public override void SetIsAlive(bool isAlive)
+        {
+            base.SetIsAlive(isAlive);
+
+            if (!isAlive)
+            {
+                GameUI.Instance.ResetScene(3.0f);
             }
         }
 
@@ -64,6 +77,8 @@ namespace SpyCombat.Gameplay
 
         protected override void _HandleMoveInput()
         {
+            base._HandleMoveInput();
+
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
             bool sprint = Input.GetButton("Sprint") && ((CurrentWeapon) ? !CurrentWeapon.isFiring : true);
@@ -75,8 +90,17 @@ namespace SpyCombat.Gameplay
             {
                 float targetAngleMove = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
                 Vector3 movedir = Quaternion.Euler(0f, targetAngleMove, 0f) * Vector3.forward;
-                CharacterController.Move(movedir.normalized * speed * currentSprintMultiplier * Time.deltaTime);
+                Vector3 gravity = (CharacterController.isGrounded) ? Vector3.zero : ENTITY_GRAVITY * Time.deltaTime;
+                Vector3 move = movedir.normalized * speed * currentSprintMultiplier * Time.deltaTime + gravity;
+                CharacterController.Move(move);
             }
+            else
+            {
+                Vector3 gravity = (CharacterController.isGrounded) ? Vector3.zero : ENTITY_GRAVITY * Time.deltaTime;
+                CharacterController.Move(gravity);
+            }
+
+            Animator.SetFloat("moveRange", Mathf.RoundToInt(dir.magnitude) * currentSprintMultiplier);
         }
 
         protected override void _HandleLookInput()
@@ -91,10 +115,10 @@ namespace SpyCombat.Gameplay
         private void _HandleInteractInput()
         {
             bool interact = Input.GetButtonDown("Interact");
-            if(interact)
+            if (interact)
             {
                 Collider[] colliders = Physics.OverlapSphere(transform.position, 1.0f, Physics.AllLayers, QueryTriggerInteraction.Collide);
-                for(int i=0; i<colliders.Length; i++)
+                for (int i = 0; i < colliders.Length; i++)
                 {
                     var weapon = colliders[i].GetComponent<WeaponController>();
                     if (weapon != null)
@@ -115,19 +139,6 @@ namespace SpyCombat.Gameplay
                     }
                 }
             }
-        }
-
-        private float _CalcSpeed(float currentSprintMultiplier)
-        {
-            AbstractPowerUpController powerUp;
-            float speedMultiplier = 1;
-            if(CurrentActivePowerup.TryGetValue(new PowerUpController_SpeedMultiplier(), out powerUp))
-            {
-                print("oy");
-                speedMultiplier = (powerUp as PowerUpController_SpeedMultiplier).SpeedMultiplier;
-            }
-
-            return speed * currentSprintMultiplier * speedMultiplier;
         }
     }
 }

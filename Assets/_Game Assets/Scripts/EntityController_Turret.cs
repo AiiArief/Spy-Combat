@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +8,7 @@ namespace SpyCombat.Gameplay
     {
         public override void HitByBullet(BulletController bullet)
         {
-            CurrentHealth = Mathf.Max(0, CurrentHealth - 1);
+            CurrentHealth = Mathf.Max(0, CurrentHealth - bullet.damage);
             if (CurrentHealth <= 0)
             {
                 SetIsAlive(false);
@@ -28,6 +27,12 @@ namespace SpyCombat.Gameplay
             Quaternion rotation = Quaternion.LookRotation(new Vector3(dir.x, 0, dir.z));
 
             transform.rotation = Quaternion.Euler(0.0f, rotation.eulerAngles.y, 0.0f);
+        }
+
+        protected override void _HandleMoveInput()
+        {
+            Vector3 gravity = (CharacterController.isGrounded) ? Vector3.zero : ENTITY_GRAVITY * Time.deltaTime;
+            CharacterController.Move(gravity);
         }
     }
 }
